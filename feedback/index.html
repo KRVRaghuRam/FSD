@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stylish Feedback Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glass card */
+.container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+/* Highlight */
+.highlight {
+  border: 2px solid yellow;
+  background: rgba(255,255,255,0.3);
+}
+
+/* Error */
+.error {
+  border: 2px solid red;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #ff512f, #dd2476);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+</style>
+
+<script>
+// Allow only letters
+function validateInput(event) {
+  let char = event.key;
+  if (!/^[a-zA-Z ]$/.test(char)) {
+    event.preventDefault();
+  }
+}
+
+// Highlight
+function highlightField(el) {
+  el.classList.add("highlight");
+}
+
+function removeHighlight(el) {
+  el.classList.remove("highlight");
+}
+
+// Empty check
+function checkEmpty(el) {
+  if (el.value.trim() === "") {
+    el.classList.add("error");
+  } else {
+    el.classList.remove("error");
+  }
+}
+
+// Submit
+function submitForm() {
+  let name = document.getElementById("name").value.trim();
+  let feedback = document.getElementById("feedback").value.trim();
+
+  if (name === "" || feedback === "") {
+    alert("⚠️ Please fill all fields!");
+  } else {
+    alert("🎉 Feedback submitted successfully!");
+  }
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+  <h2>💬 Feedback Form</h2>
+
+  <form>
+    <label>Name</label>
+    <input type="text" id="name"
+      placeholder="Enter your name"
+      onkeypress="validateInput(event)"
+      onmouseover="highlightField(this)"
+      onmouseout="removeHighlight(this)"
+      onblur="checkEmpty(this)">
+
+    <label>Feedback</label>
+    <textarea id="feedback" rows="4"
+      placeholder="Write your feedback..."
+      onmouseover="highlightField(this)"
+      onmouseout="removeHighlight(this)"
+      onblur="checkEmpty(this)">
+    </textarea>
+
+    <button type="button" ondblclick="submitForm()">
+      Submit (Double Click)
+    </button>
+  </form>
+</div>
+
+</body>
+</html>
